@@ -1,0 +1,25 @@
+<form method="POST" action="index.php?id=wyszukaj">
+    Nazwisko: <input name="nazwisko" type="text">
+    <button type="submit">Znajdź</button>
+</form>
+
+<?php
+  $nazwisko = isset($_POST['nazwisko'])?$_POST['nazwisko']:"";
+  $sql = "SELECT * FROM dane_osobowe1  WHERE nazwisko='$nazwisko'";
+  $result = $conn->query($sql);
+
+  if (mysqli_num_rows($result) > 0)
+  { 
+    echo "<table border=\"1\">";
+    while($row = mysqli_fetch_assoc($result))
+    {
+        echo '<tr><td>' . $row["id"]. '</td><td>' . $row["imie"]. '</td><td>' . $row["nazwisko"]. '</td><td>' . $row["miejsce_urodzenia"]. '</td><td>' . $row["data"]. '</td><td>' . $row["wiek"]. '</td></tr>';
+    }
+    echo "</table>";
+  }
+  else 
+  {
+    echo "0 results";
+  }
+
+?>
